@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        *{margin:0;padding:0}
+        #mydiv{
+            width: 950px;
+            height: 500px;
+            background:url('http://211.159.149.56:8080/map/A8/4o28b0625501ad13015501ad2bfc0074.jpg');
+            background-size:contain;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mydiv">
+</div>
+<script>
+    var bindEvent = function(dom, eventName, listener){
+        if(dom.attachEvent) {
+            dom.attachEvent('on'+eventName, listener);
+        } else {
+            dom.addEventListener(eventName, listener);
+        }
+    }
+    var mydiv = document.getElementById('mydiv');
+    bindEvent(mydiv, 'mousemove', function(e){
+        console.log(e);
+        var offsetX = e.clientX - mydiv.offsetLeft;
+        var offsetY = e.clientY - mydiv.offsetTop;
+        console.log(offsetX, offsetY);
+    });
+
+    bindEvent(mydiv, 'mouseenter', function(e){
+        this.style.cursor='crosshair';
+        console.log(e);
+    });
+    bindEvent(mydiv, 'mousedown', function(e){
+        var offsetX = e.clientX - mydiv.offsetLeft;
+        var offsetY = e.clientY - mydiv.offsetTop;
+        alert(offsetX + "|" + offsetY)
+    });
+
+
+</script>
+</body>
+

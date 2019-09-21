@@ -1,0 +1,69 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" media="screen" href="style.css" />
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+
+
+</head>
+
+
+
+<body>
+<form name="form1" method="post" action=""   id="formID" >
+
+    <p>picture<input type="text" placeholder="picture" name = "picture"> </p>
+    <p>xValue<input type="text" placeholder="xValue" name = "xValue"> </p>
+    <p>yValue<input type="text" placeholder="yValue" name = "yValue"> </p>
+
+    <input id = "query" type="button" value="Send &raquo;"> </p>
+</form>
+
+<div id = "placeholder">
+
+</div>
+
+<script>
+
+    $.fn.serializeObject = function(){
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    }
+
+
+    $('#query').click(function(){
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: '/mapguesstest',
+                data : JSON.stringify($('#formID').serializeObject()),
+                contentType : 'application/json',
+                success : function (data) {
+                    alert (data);
+                }
+
+            }
+        );
+
+    });
+
+
+</script>
+
+
+</body>
+</html>

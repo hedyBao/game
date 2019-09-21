@@ -1,0 +1,115 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+
+
+    <title>所有的图片信息</title>
+
+</head>
+
+
+
+<body>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">查看上传过的所有图片</div>
+
+    <!-- Table -->
+    <table class="table" id = "myList">
+        <thead>
+        <tr>
+            <th>记录ID</th>
+            <th>图片</th>
+            <th>X坐标</th>
+            <th>坐标</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr  v-for= "item in items">
+            <td> {{ item.id }}</td>
+            <td><img style="max-height: 250px;max-width: 500px" :src="item.picture"></td> <button></button>
+            <td> {{ item.xValue }}</td>
+            <td> {{ item.yValue }}</td>
+
+            <td>
+                <!--把超链接做成按钮的样子-->
+                <a class= "btn btn-primary" id="delete"  @click="deleteById( item.id )" >删除 </a>
+                <!--<input type="button" name="button" value="删除" id="deleteTable" onclick="delTableRow(this)"/>-->
+                <!--<button class="btn btn-primary btn-sm" id="delete" v-on :click ="deleteMsg(item.id)">删除</button>-->
+                <!--<button class="btn btn-primary btn-sm" id="delete" data-target="#layer" v-on:click="item.id">删除</button>-->
+            </td>
+
+
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!--</div>-->
+
+<script>
+    // var app = new Vue({
+    //     el: '#id1',
+    //     data: {
+    //         a: 'Hello Vue!'
+    //     }
+    // })
+    var app;
+    $.ajax(
+        {
+            type: 'GET',
+            url: '/queryAll',
+            success : function (result) {
+                //alert (data);
+
+                app = new Vue({
+                    el: '#myList',
+                    data:{
+                        items : JSON.parse(result)
+                    },
+                    methods:{
+                        deleteById: function(id){
+                            _deleteById(id);
+                        }
+                    }
+                });
+
+                console.log();
+            }
+
+        }
+    );
+
+    function _deleteById(id){
+        $.ajax(
+            {
+                type: 'GET',
+                url: '/deleteId?id='+id,
+                success : function () {
+                    alert ("删除成功");
+                    //todo 刷新页面
+                }
+
+            }
+        );
+    }
+
+
+
+
+</script>
+
+
+</body>
+</html>

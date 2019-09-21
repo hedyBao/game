@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapguess.dao.MapGuessMapper">
+
+
+    <insert id="insertMapGuess">
+        insert into MapValue(picture,xValue,yValue,pictureName)
+        values (#{mapGuess.picture},#{mapGuess.xValue},#{mapGuess.yValue},#{mapGuess.pictureName})
+    </insert>
+
+
+    <select id="idList" resultType="java.lang.Integer">
+        select id from MapValue
+    </select>
+
+    <select id="selectById" resultType="mapguess.model.MapGuess">
+        select * from MapValue where id=#{id}
+    </select>
+
+    <select id="allDataList" resultType="mapguess.model.MapGuess">
+        select * from MapValue
+    </select>
+
+    <delete id="deleteById">
+        delete from MapValue where id=#{id}
+    </delete>
+
+</mapper>
