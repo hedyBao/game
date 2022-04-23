@@ -10,7 +10,7 @@
     <name>AppFuse Spring MVC Application</name>
     <url>http://www.mycompany.com</url>
     <properties>
-        <spring-version>5.0.8.RELEASE</spring-version>
+        <spring-version>5.3.19</spring-version>
     </properties>
 
 
